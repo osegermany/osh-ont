@@ -72,7 +72,7 @@ potentially modified a bit.
 
 Starting in October 2023, it is:
 
-- Lynn Foster from the [ValueFlows](https://valueflo.ws) (VF) project
 - Robin Vobruba from [Open Source Ecology Germany](https://wiki.opensourceecology.de) (OSEG)
+- Lynn Foster from the [Valueflows](https://valueflo.ws) (VF) project
 
 We are looking for more contributors!

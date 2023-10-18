@@ -1,0 +1,410 @@
+@base             <https://github.com/OSEGermany/osh-ont/raw/master/osh.ttl> .
+@prefix osh:      <#> .
+@prefix oshex:    <https://github.com/OSEGermany/osh-ont/raw/master/osh-example.ttl#> .
+@prefix okh:      <#> .
+@prefix obo:      <http://purl.obolibrary.org/obo/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:   <http://schema.org/> .
+@prefix spdxt:    <http://spdx.org/rdf/terms#> .
+@prefix cc:       <http://creativecommons.org/ns#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix epo:      <http://data.epo.org/linked-data/def/patent/> .
+@prefix npg:      <http://ns.nature.com/terms/> .
+@prefix otrl:     <https://github.com/OPEN-NEXT/OKH-LOSH/raw/master/OTRL.ttl#> .
+@prefix tsdc:     <https://gitlab.com/OSEGermany/oh-tsdc/-/raw/master/oh-tsdc.ttl#> .
+
+# SPDX-FileCopyrightText: 2023 Robin Vobruba <hoijui.quaero@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# NOTE:
+# Regarding the use of `schema:domainIncludes`
+# and `schema:rangeIncludes` in this ontology:
+# Looking at the definitions for the RDFS version
+# of the two, `rdfs:domain` and `rdfs:range`:
+# * https://www.w3.org/TR/rdf-schema/#ch_domain
+# * https://www.w3.org/TR/rdf-schema/#ch_range
+# and as described in this StackOverflow answer:
+# <https://stackoverflow.com/a/74782257/586229>,
+# multiple objects for the two RDFS properties mean,
+# that *all of them* apply, simultaneously,
+# not *one of them*.
+# You may think of this as an `AND` coupling.
+# We want the *one of them* meaning though (`OR`).
+# The `schema:*` properties give us just that.
+
+<>
+  a owl:Ontology ;
+  owl:versionInfo "0.1" ;
+  owl:versionIRI <> ;
+  rdfs:label "Open Source Hardware"@en ;
+  rdfs:comment "An OSH design-space and physical world ontology"@en ;
+  dcterms:contributor "Robin Vobruba <hoijui.quaero@gmail.com>" ;
+  dcterms:license <https://www.gnu.org/licenses/agpl-3.0.txt> ;
+  cc:license <https://www.gnu.org/licenses/agpl-3.0.txt> ;
+  spdxt:ListedLicense "AGPL-3.0-or-later" ;
+  .
+
+
+
+# everything is a thing (or tangible artifact)!!!
+# some are indivisible, and everything else can be expressed as relationships (module, interface, part of, ...)
+# In the design space, a each thing has a design or specification (is a spec. also a design, or vice versa?)
+
+# - Interfaces can define interactions between a hardware device, software program and a user.
+# - The exchange can be between software, {computer hardware, peripheral devices}, humans, and combinations of these.
+
+# segment article item part piece specimen instance occurence component section porton chunk section 
+
+# indivisible (= átomos (Gr.))
+
+# put-together assemble compose join-up construct join unit 
+
+# extend patch
+
+# module element constituent
+
+# # BoM vs "shopping list"
+
+# BoM includes only your parts (and quantities, specs etc.) and the shopping list states where you're getting the materials from. e.g. shopping list may include parts from another machine that are then processed into parts that appear in your BoM.
+
+
+
+
+
+osh:Realm
+  a owl:Class ;
+  rdfs:label "OSH-Realm" ;
+  rdfs:comment "A sphere/level/space/realm within hte OSH world (TODO Improve this comment)."@en ;
+  .
+
+osh:PhysicalRealm
+  a osh:Realm ;
+  rdfs:label "Physical World" ;
+  rdfs:comment "The realm of all things touchable."@en ;
+  .
+
+osh:DesignRealm
+  a osh:Realm ;
+  rdfs:label "Design Space" ;
+  rdfs:comment "The realm of the designd and documentation of things; living in the virtual world."@en ;
+  .
+
+osh:RegulationRealm
+  a osh:Realm ;
+  rdfs:label "Regulations" ;
+  rdfs:comment "The realm of legal/official and technical standards and specifications; living in the legal and virtual world."@en ;
+  .
+
+osh:MetaRealm
+  a osh:Realm ;
+  rdfs:label "Meta-Data Packages Store" ;
+  rdfs:comment "The realm where we track histories of snapshots of meta-data about objects (aka \"Passports\") in other realms; these also ive in the virtual world."@en ;
+  .
+
+osh:AbstractRealm
+  a osh:Realm ;
+  rdfs:label "Abstract Realm" ;
+  rdfs:comment "The realm where we place abstract objects, that are not specfically situated in any (number of) the other realms, but rather just serve as base to inherit from, to form objects that *are* situated in the other (real) ralms."@en ;
+  .
+
+osh:Thing
+  a owl:Class ;
+  rdfs:label "Physical object"@en ;
+  rdfs:comment "Could be a solid, a gas, a liquid, an electromagnetic wave, or a combination of any number of these in different shapes and constellations"@en ;
+  osh:realms osh:PhysicalRealm ;
+  .
+
+osh:Design
+  a owl:Class ;
+  rdfs:label "Virtual description of an osh:Thing"@en ;
+  rdfs:comment "A bunch of (hopefully) well structured files describing how a thing is shaped, formed, manufactured, assembled and possibly even recycled and used."@en ;
+  osh:realms osh:DesignRealm ;
+  .
+
+osh:Regulation
+  a owl:Class ;
+  rdfs:label "Regulation"@en ;
+  rdfs:comment "Official, Legal or Technical Norm/Standard/Specification applicable to an osh:Thing or osh:Design"@en ;
+  osh:realms osh:RegulationRealm ;
+  .
+
+osh:Passport
+  a owl:Class ;
+  rdfs:label "Digital Passport"@en ;
+  rdfs:comment "A store of a history of snapshots of data (including meta-data) about a single physical or virtual object. Here we apply it to an osh:Thing, osh:Design or osh:Interface"@en ;
+  osh:realms osh:MetaRealm ;
+  .
+
+osh:Interface
+  a owl:Class ;
+  rdfs:label "Interface" ;
+  rdfs:comment "A virtual description of a shared boundary across two or more separate components. This is an abstract base class."@en ;
+  rdfs:comment "NOTE As of our knowledge, there is no open way to technically define this (as of August 2023)."@en ;
+  osh:realms osh:AbstractRealm ;
+  .
+
+osh:HardwareInterface
+  a osh:Interface ;
+  rdfs:label "Things Interface" ;
+  rdfs:comment "A virtual description of a physical interface between things (osh:Thing)."@en ;
+  rdfs:comment "NOTE As of our knowledge, there is no open way to technically define this (as of August 2023)."@en ;
+  osh:realms
+    osh:PhysicalRealm ,
+    osh:DesignRealm ;
+  .
+
+osh:UserInterface
+  a osh:Interface ;
+  rdfs:label "User Interface" ;
+  rdfs:comment "A virtual description of an interface involving at least one user (living thing) and one thing (osh:Thing)."@en ;
+  rdfs:comment "NOTE As of our knowledge, there is no open way to technically define this (as of August 2023)."@en ;
+  osh:realms
+    osh:PhysicalRealm ,
+    osh:DesignRealm ;
+  .
+
+osh:TextileInterface
+  a osh:Interface ;
+  rdfs:label "Textile Interface" ;
+  rdfs:comment "A virtual description of an interface involving at least one textile."@en ;
+  rdfs:comment "NOTE As of our knowledge, there is no open way to technically define this (as of August 2023)."@en ;
+  osh:realms
+    osh:PhysicalRealm ,
+    osh:DesignRealm ;
+  .
+
+osh:WetwareInterface
+  a osh:Interface ;
+  rdfs:label "Wetware Interface" ;
+  rdfs:comment "A virtual description of an interface involving at least one wetware."@en ;
+  rdfs:comment "NOTE As of our knowledge, there is no open way to technically define this (as of August 2023)."@en ;
+  osh:realms
+    osh:PhysicalRealm ,
+    osh:DesignRealm ;
+  .
+
+
+
+osh:hasPart
+  a owl:ObjectProperty ;
+  rdfs:label "has part" ;
+  rdfs:comment "Links a sub-part (a thing) to its enclosing thing. This is the `osh:PhysicalRealm` alternative to `osh:hasComponent`." ;
+  schema:rangeIncludes osh:Thing ;
+  schema:domainIncludes osh:Thing ;
+  osh:realms osh:PhysicalRealm ;
+  .
+
+osh:hasComponent
+  a owl:ObjectProperty ;
+  rdfs:label "has component" ;
+  rdfs:comment "Links a sub-component (a design) to its enclosing design. This is the `osh:DesignRealm` alternative to `osh:hasPart`." ;
+  schema:rangeIncludes osh:Design ;
+  schema:domainIncludes osh:Design ;
+  osh:realms osh:DesignRealm ;
+  .
+
+# osh:hasInterface
+#   a owl:ObjectProperty ;
+#   rdfs:label "has interface" ;
+#   rdfs:comment "Indicates that a design implements an osh:Interface; TODO Which side of the interface?" ;
+#   schema:rangeIncludes osh:Interface ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+osh:providesInterface
+  a owl:ObjectProperty ;
+  rdfs:label "provides interface" ;
+  rdfs:comment "Indicates that a design *provides* an osh:Interface" ;
+  schema:rangeIncludes osh:Interface ;
+  schema:domainIncludes osh:Design ;
+  osh:realms osh:DesignRealm ;
+  .
+
+osh:implementsInterface
+  a owl:ObjectProperty ;
+  rdfs:label "provides interface" ;
+  rdfs:comment "Indicates that a design *implements* an osh:Interface" ;
+  schema:rangeIncludes osh:Interface ;
+  schema:domainIncludes osh:Design ;
+  osh:realms osh:DesignRealm ;
+  .
+
+osh:isDefinedBy
+  a owl:ObjectProperty ;
+  rdfs:label "is defined by" ;
+  rdfs:comment "Indicates that a thing is defined by/desgined in/documented in a specific osh:Design." ;
+  schema:rangeIncludes osh:Design ;
+  schema:domainIncludes osh:Thing ;
+  osh:realms osh:PhysicalRealm ;
+  .
+
+# osh:isExample
+#   a owl:ObjectProperty ;
+#   rdfs:label "is example" ;
+#   rdfs:comment "Indicates that something is an example instance, not to be considered actual data, but to be used for documentation purposes." ;
+#   schema:rangeIncludes xsd:boolean ;
+#   schema:domainIncludes
+#     osh:Thing ,
+#     osh:Design ,
+#     osh:Regulation ,
+#     osh:Passport ,
+#     osh:Interface ;
+#   # osh:realms osh:DesignRealm ;
+#   .
+
+
+
+
+# osh:BoM
+#   a owl:Class ;
+#   owl:sameAs okh:BoM ;
+#   rdfs:label "Bill of Materials" ;
+#   rdfs:subClassOf schema:SpreadsheetDigitalDocument ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+# osh:ManufacturingInstructions
+#   a owl:Class ;
+#   rdfs:label "Manufacturing Instructions" ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+# osh:UserManual
+#   a owl:Class ;
+#   rdfs:label "User Manual" ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+# osh:ontVersion
+#   a owl:DatatypeProperty ;
+#   rdfs:label "OKH version" ;
+#   rdfs:comment "version of OSH specification the metadata is following (different version → different data fields)" ;
+#   rdfs:subPropertyOf schema:version ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   owl:cardinality 1 ;
+#   .
+
+# osh:repo
+#   a owl:ObjectProperty ;
+#   rdfs:label "repository" ;
+#   rdfs:comment '''
+#     URL to the place where development happens (typically the repository)" ;
+#     following this link people shall be able to contribute to the development
+#     (reporting issues, suggesting changes, connecting to the team etc.)" '''@en;
+#   rdfs:subPropertyOf schema:codeRepository ;
+#   schema:rangeIncludes schema:Url ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   owl:cardinality 1 ;
+#   .
+
+# osh:repoSnapshot
+#   a owl:ObjectProperty ;
+#   rdfs:label "respository snapshot" ;
+#   rdfs:comment "Repoistory snapshot (=specific version) URL" ;
+#   rdfs:subPropertyOf osh:repo ;
+#   .
+
+# osh:version
+#   a owl:DatatypeProperty ;
+#   rdfs:label "version" ;
+#   rdfs:comment "version of this Component, preferably in the semantic versioning scheme (semver.org)" ;
+#   rdfs:subPropertyOf schema:version ;
+#   schema:rangeIncludes xsd:string ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms
+#     osh:PhysicalRealm ,
+#     osh:DesignRealm ;
+#   owl:cardinality 1 ;
+#   .
+
+# osh:snapshotOf
+#   a owl:ObjectProperty ;
+#   rdfs:label "version of" ;
+#   rdfs:comment "connects specific versions of Modules with their versionless superclass" ;
+#   schema:rangeIncludes osh:Design ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+# osh:license
+#   a owl:ObjectProperty ;
+#   rdfs:label "SPDX license identifier" ;
+#   rdfs:comment "view complete list under https://spdx.org/licenses/" ;
+#   schema:rangeIncludes spdxt:ListedLicense ; # aka SPDX license identifier for a single, atomar license
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   owl:cardinality 1 ;
+#   .
+
+# osh:cpcPatentClass
+#   a owl:ObjectProperty ;
+#   rdfs:label "Patent Class" ;
+#   rdfs:comment "International Patent Classification (IPC)" ;
+#   rdfs:subPropertyOf epo:classificationIPCInventive;
+#   schema:rangeIncludes xsd:string ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+# osh:timestamp
+#   a owl:ObjectProperty ;
+#   rdfs:label "timestamp" ;
+#   rdfs:comment "following ISO 8601; see: <https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp>" ;
+#   schema:rangeIncludes xsd:dateTimeStamp ;
+#   schema:domainIncludes osh:Design ;
+#   osh:realms osh:DesignRealm ;
+#   .
+
+
+oshex:TractorMotorInterfaceY
+  a osh:HardwareInterface ;
+  rdfs:label "Tractor Motor Interface Y" ;
+  .
+
+oshex:TractorX
+  a osh:Design ;
+  rdfs:label "Tractor X Design" ;
+  osh:providesInterface oshex:TractorMotorInterfaceY ;
+  .
+
+oshex:TractorCylinderHeadZ
+  a osh:Design ;
+  rdfs:label "Tractor Cylinder-Head Z" ;
+  .
+
+oshex:TractorXMotorGasoline
+  a osh:Design ;
+  rdfs:label "Tractor X Motor Gasoline" ;
+  osh:implementsInterface oshex:TractorMotorInterfaceY ;
+  osh:hasComponent oshex:TractorCylinderHeadZ ;
+  .
+
+oshex:TractorXMotorDiesel
+  a osh:Design ;
+  rdfs:label "Tractor X Motor Diesel" ;
+  osh:implementsInterface oshex:TractorMotorInterfaceY ;
+  osh:hasComponent oshex:TractorCylinderHeadZ ;
+  .
+
+oshex:BobbiesTractorMotorDiesel
+  a osh:Thing ;
+  rdfs:label "Bobbies Tractor Motor (Diesel)" ;
+  osh:isDefinedBy oshex:TractorXMotorDiesel ;
+  .
+
+oshex:BobbiesFirstTractor
+  a osh:Thing ;
+  rdfs:label "Bobbies first Tractor" ;
+  osh:isDefinedBy oshex:TractorX ;
+  osh:hasPart oshex:BobbiesTractorMotorDiesel ;
+  .

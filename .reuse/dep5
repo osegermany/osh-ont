@@ -1,0 +1,19 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: OSH Ontology
+Upstream-Contact: Robin Vobruba (Open Source Ecology Germany) <hoijui.quaero@gmail.com>
+Source: https://github.com/OSEGermany/osh-ont
+
+Files: res/media/img/*_oseg-*_ccbysa.svg
+Copyright:
+    2023 Robin Vobruba <hoijui.quaero@gmail.com>
+License: CC-BY-SA-4.0
+
+Files: res/media/img/*_svgrepo-com_cc0.svg
+Copyright:
+    2023 svgrepo.com
+License: CC0-1.0
+
+Files: src/icons/*.svg
+Copyright:
+    2023 Robin Vobruba <hoijui.quaero@gmail.com>
+License: CC0-1.0

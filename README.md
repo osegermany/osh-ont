@@ -14,10 +14,10 @@ SPDX-License-Identifier: CC0-1.0
     https://api.reuse.software/info/github.com/OSEGermany/osh-ont)
 
 [![In cooperation with Open Source Ecology Germany](
-    https://custom-icon-badges.demolab.com/badge/-OSEG-555555.svg?logo=oseg_logo)](
+    https://raw.githubusercontent.com/osegermany/tiny-files/master/res/media/img/badge-oseg.svg)](
     https://opensourceecology.de)
 [![In cooperation with ValueFlows](
-    https://custom-icon-badges.demolab.com/badge/-VF-35acb0.svg?logo=vf_logo)](
+    https://raw.githubusercontent.com/osegermany/tiny-files/master/res/media/img/badge-valueflows.svg)](
     https://valueflo.ws)
 
 - OSH: **_Open Source Hardware_** (Machines and other things that free the user of the domination and control by the producer)

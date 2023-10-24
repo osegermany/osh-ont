@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 # OSH Ontology
 
 [![License](
-    https://img.shields.io/github/license/OSEGermany/osh-ont.svg?style=flat)](
+    https://img.shields.io/badge/License-CC0--1.0-blue.svg)](
     LICENSE)
 [![REUSE status](
     https://api.reuse.software/badge/github.com/OSEGermany/osh-ont)](

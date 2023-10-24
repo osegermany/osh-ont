@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # OSH Ontology
 
-[![License](
+[![License: CC0-1.0](
     https://img.shields.io/badge/License-CC0--1.0-blue.svg)](
     LICENSE)
 [![REUSE status](

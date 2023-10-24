@@ -10,8 +10,8 @@ SPDX-License-Identifier: CC0-1.0
     https://img.shields.io/badge/License-CC0--1.0-blue.svg)](
     LICENSE)
 [![REUSE status](
-    https://api.reuse.software/badge/github.com/OSEGermany/osh-ont)](
-    https://api.reuse.software/info/github.com/OSEGermany/osh-ont)
+    https://api.reuse.software/badge/codeberg.org/oseg/osh-ont)](
+    https://api.reuse.software/info/codeberg.org/oseg/osh-ont)
 
 [![In cooperation with Open Source Ecology Germany](
     https://raw.githubusercontent.com/osegermany/tiny-files/master/res/media/img/badge-oseg.svg)](
